@@ -1,12 +1,51 @@
 //
 // Created by Aashiq Shaikh on 8/10/23.
 //
+// TODO: make char array a pixel struct array
+// TODO: convert pixel struct array to a char array in save()
+// TODO: add a get() method
+
 
 #ifndef CPU_RASTERIZER_BITMAP_H
 #define CPU_RASTERIZER_BITMAP_H
 
 #include <cstdlib>
 #include <cstdio>
+
+struct pixel
+{
+    char p[3];
+
+    pixel(char r, char g, char b)
+    {
+        p[0] = r;
+        p[1] = g;
+        p[2] = b;
+    }
+
+    pixel()
+    {
+        p[0] = 255;
+        p[1] = 255;
+        p[2] = 255;
+    }
+
+    char r()
+    {
+        return p[0];
+    }
+
+    char g()
+    {
+        return p[1];
+    }
+
+    char b()
+    {
+        return p[2];
+    }
+
+};
 
 class bitmap {
 public :
@@ -26,6 +65,15 @@ public :
         pixels[index] = r;
         pixels[index+1] = g;
         pixels[index+2] = b;
+    }
+
+    void set(int x, int y, pixel p)
+    {
+        auto index = y * padded_width + x * 3;
+        pixels[index] = p.r();
+        pixels[index+1] = p.g();
+        pixels[index+2] = p.b();
+
     }
 
     void save(char *filename)
