@@ -11,39 +11,33 @@
 
 #include <cstdlib>
 #include <cstdio>
+#include <limits>
 
 struct pixel
 {
-    char p[3];
+    unsigned char p[3];
 
-    pixel(char r, char g, char b)
-    {
+    pixel(unsigned char r, unsigned char g, unsigned char b) {
         p[0] = r;
         p[1] = g;
         p[2] = b;
     }
 
-    pixel()
-    {
+    pixel() {
         p[0] = 255;
         p[1] = 255;
         p[2] = 255;
     }
 
-    char r()
-    {
-        return p[0];
-    }
+    unsigned char r() { return p[0]; }
+    unsigned char g() { return p[1]; }
+    unsigned char b() { return p[2]; }
 
-    char g()
-    {
-        return p[1];
-    }
+    inline static pixel white() { return {255, 255, 255}; }
+    inline static pixel red() { return {255, 0, 0}; }
+    inline static pixel blue() { return {0, 0, 255}; }
+    inline static pixel green() { return {0, 255, 0}; }
 
-    char b()
-    {
-        return p[2];
-    }
 
 };
 
@@ -59,7 +53,7 @@ public :
         for (int i = 0; i < size; i++) pixels[i] = 0;
     }
 
-    void set(int x, int y, char r, char g, char b)
+    void set(int x, int y, unsigned char r, unsigned char g, unsigned char b)
     {
         auto index = y * padded_width + x * 3;
         pixels[index] = r;
